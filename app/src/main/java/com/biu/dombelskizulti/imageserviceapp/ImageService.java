@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
 import com.biu.dombelskizulti.imageserviceapp.ProgressBar.NotificationProgress;
 import com.biu.dombelskizulti.imageserviceapp.ProgressBar.ProgressBar;
@@ -23,8 +24,8 @@ public class ImageService extends Service {
 
     public ImageService() { }
 
-    @Nullable
 
+    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -53,6 +54,17 @@ public class ImageService extends Service {
 
         this.registerReceiver(this.onWifiConnect, theFilter);
     }
+
+    public int onStartCommand(Intent intent, int flag, int startId) {
+        Toast.makeText(this,"Service starting...", Toast.LENGTH_SHORT).show();
+        return START_NOT_STICKY;
+    }
+
+
+    public void onDestroy() {
+        Toast.makeText(this,"Service ending...", Toast.LENGTH_SHORT).show();
+    }
+
 
     private void startTransferImages() {
         final Context context = this;
